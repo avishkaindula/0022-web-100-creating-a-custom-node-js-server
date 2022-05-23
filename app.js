@@ -14,15 +14,29 @@ const http = require("http");
 // Web servers listen to incoming requests and send back responses.
 
 function handleRequest(request, response) {
-  response.statusCode = 200;
-  // statusCode is a property that's telling the browser whether a request succeeded or not.
-  // If we wan't to communicate a success, we should set it to 200
-  // 404 is the status code which is used to communicate from the server to the browser,
-  // that the browser tried to access a page that doesn't exist.
-  response.end("<h1>Hello World!</h1>");
-  // "end" is a property used to end the preparing the response and send it to the client.
-  // To "end", we can pass the data that should be sent.
-  // We could sent a very basic piece of HTML code as the response like this.
+  if (request.url === "/currenttime") {
+    response.statusCode === 200;
+    response.end("<h1>" + new Date().toISOString() + "</h1>");
+    // This code get executed if we request localhost:3000/currenttime as the URL in the browser.
+    // .url is a property that's included in the request method.
+    // "currenttime" is known as a path that is entered in the URL.
+    // it's typically all-lowercase with no special characters.
+    // We can send dynamically fetched or generated data as a response using NodeJS.
+    // The current time stamp is an example for it.
+    // We can get the current time stamp by using new Date()
+    // .toISOString() converts this date object into a string representation.
+  } else if (request.url === "/") {
+    response.statusCode = 200;
+    // statusCode is a property that's telling the browser whether a request succeeded or not.
+    // If we wan't to communicate a success, we should set it to 200
+    // 404 is the status code which is used to communicate from the server to the browser,
+    // that the browser tried to access a page that doesn't exist.
+    response.end("<h1>Hello World!</h1>");
+    // "end" is a property used to end the preparing the response and send it to the client.
+    // To "end", we can pass the data that should be sent.
+    // We could sent a very basic piece of HTML code as the response like this.
+  }
+  // This else if code get executed if we add just localhost:3000 as the URL.
 }
 // This function has certain parameter values.
 // a parameter value that extracts data from an incoming request,
